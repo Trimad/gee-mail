@@ -1,18 +1,31 @@
+<meta charset="utf-8"/>
+<!DOCTYPE html>
+
 <html>
-	<head>
-		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
-    </script>
-	</head>
-	<body>
-		<div class="container" id="main">
-			Build Me!
-		</div>
-	</body>
+
+<head>
+	<script src="js/mail-generator.js"></script>
+	<link href="css/style.css" rel="stylesheet" media="screen">
+	<script>
+		window.onload = function () {
+			// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+			// We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+			for (i = 0; i < geemails.length; i++) {
+				let mockGeemail = document.createElement("li");
+				mockGeemail.innerHTML = geemails[i];
+				document.getElementById("geemails-ul").appendChild(mockGeemail);
+				console.log(geemails);
+			}
+		};
+
+	</script>
+</head>
+
+<body>
+	<div class="container" id="main">
+		<ul id="geemails-ul">
+		</ul>
+	</div>
+</body>
+
 </html>
