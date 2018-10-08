@@ -1,7 +1,6 @@
 (function(){
   /*This is the mail generator file that will generate initial mail messages and expose methods for creating new messages in your project. Do not make any modifications to this file for your solution. Happy coding!*/
 
-
   //Gee Mail message stub data 
   var subject = ['Call Your Mother', 'Cheap Online Meds', 'Change Your Life Today', 'Sppoky Stories', 'Meet Singles In Your Area', 'Have You Heard?', 'Yo', 'RE: Looking for a three legged cat', 'Get Rich Quick!', 'FW: Token Chain Email'];
   var sender = ['Mary Monster', 'Dave Danger', 'Spam Master', 'Spike Spurner', 'Ray Ranger', 'Catherine Chaos', 'Van Pire', 'Andy Argye', 'Rick Roger', 'Sue Mee'];

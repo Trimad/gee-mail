@@ -6,7 +6,6 @@
 	<link href="css/style.css" rel="stylesheet" media="screen">
 	<script src="js/mail-generator.js"></script>
 	<script src="js/sketch.js"></script>
-	<script src="js/cross.js"></script>
 	<script src="libraries/p5.min.js"></script>
 	<script>
 		window.onload = function () {
@@ -40,9 +39,10 @@
 		};
 
 	</script>
+
 </head>
 
-<body>
+<body id="bg">
 
 	<div id="top">Placeholder for search bar...</div>
 	<div id="bottom">
@@ -62,7 +62,6 @@
 
 		<div id="right">
 			<table id="geemails-table" style="width:100%">
-				<tbody>
 					<tr>
 						<th style="width:14%">
 							<i class="material-icons">person</i>
@@ -81,6 +80,7 @@
 							<!-- Date -->
 						</th>
 					</tr>
+
 			</table>
 		</div>
 

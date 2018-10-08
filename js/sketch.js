@@ -1,59 +1,54 @@
-function setup() { 
-	createCanvas(windowWidth, windowHeight,P2D);
+var balls = [];
 
-	for (var i = 0; i < 100; i++) {
-		bulles[i] = new UsineABulle();
-		bulles[i].creation();
-  };
+function setup() {
+  createCanvas(windowWidth, windowHeight);
   noStroke();
+
+  for (let i = 0; i < 100; i++) {
+    balls[i] = new Ball();
+    balls[i].init();
+  }
 }
 
 function draw() {
-	background('#FFF');
-
-	for (var i = 0; i < bulles.length; i++) {
-		bulles[i].redessine();
-	};
+  background("#FFF");
+  balls.forEach(b => b.update());
 }
 
 function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
-var bulles = [];
+class Ball {}
 
-function UsineABulle(){};
-UsineABulle.prototype = {
-	creation : function(){
-		this.x = width/2;
-		this.y = height/2;
-		this.vitx = random(-5, 5);
-		this.vity = random(-5, 5);
-		this.diam = random(10, 100);
-		this.coulR = random(127, 255);
-		this.coulV = random(63, 189);
-		this.coulB = random(63, 189);
-	},
+Ball.prototype.init = function() {
+  this.x = Math.random() * width; //0 to width
+  this.y = Math.random() * height; //0 to height
+  this.dx = Math.random() * 2 - 1; // -1 to 1
+  this.dy = Math.random() * 2 - 1; // -1 to 1
+  this.diam = Math.random() * 100; // 0 to 100
+  this.R = Math.random() * 382 - 127; //127 to 255
+  this.G = Math.random() * 382 - 127; //127 to 255
+  this.B = Math.random() * 382 - 127; //127 to 255
+};
 
-	redessine : function(){
+Ball.prototype.update = function() {
+  fill(this.R, this.G, this.B);
+  ellipse(this.x, this.y, this.diam, this.diam);
 
-		fill(this.coulR, this.coulV, this.coulB,127);
-		ellipse(this.x, this.y, this.diam, this.diam);
+  this.x += this.dx;
+  this.y += this.dy;
 
-		this.x = this.x + this.vitx;
-		this.y = this.y + this.vity;
-		
-		if(this.x > width-this.diam/2){
-			this.vitx = -1*Math.abs(this.vitx);
-		}
-		if(this.x < this.diam/2){
-			this.vitx = Math.abs(this.vitx);
-		}
-		if(this.y > height-this.diam/2){
-			this.vity = -1*Math.abs(this.vity);
-		}
-		if(this.y < this.diam/2){
-			this.vity = Math.abs(this.vity);
-		}
-	}
-}
+  if (this.x > width - this.diam / 2) {
+    this.dx = -1 * Math.abs(this.dx);
+  }
+  if (this.x < this.diam / 2) {
+    this.dx = Math.abs(this.dx);
+  }
+  if (this.y > height - this.diam / 2) {
+    this.dy = -1 * Math.abs(this.dy);
+  }
+  if (this.y < this.diam / 2) {
+    this.dy = Math.abs(this.dy);
+  }
+};
