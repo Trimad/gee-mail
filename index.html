@@ -1,31 +1,92 @@
-<meta charset="utf-8"/>
-<!DOCTYPE html>
-
 <html>
 
 <head>
-	<script src="js/mail-generator.js"></script>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet" media="screen">
+	<script src="js/mail-generator.js"></script>
+	<script src="js/sketch.js"></script>
+	<script src="js/cross.js"></script>
+	<script src="libraries/p5.min.js"></script>
 	<script>
 		window.onload = function () {
 			// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-			// We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
+			let table = document.getElementById('geemails-table');
+
 			for (i = 0; i < geemails.length; i++) {
-				let mockGeemail = document.createElement("li");
-				mockGeemail.innerHTML = geemails[i];
-				document.getElementById("geemails-ul").appendChild(mockGeemail);
-				console.log(geemails);
+
+				let row = document.createElement("tr");
+
+				let mockSender = document.createElement("td");
+				let mockSubject = document.createElement("td");
+				let mockBody = document.createElement("td");
+				let mockDate = document.createElement("td");
+
+				mockSender.innerHTML = geemails[i].sender.substring(0, 128);
+				mockSubject.innerHTML = geemails[i].subject.substring(0, 128);
+				mockBody.innerHTML = geemails[i].body.substring(0, 256);
+				mockDate.innerHTML = geemails[i].date.toISOString().split('T')[0];
+
+				row.appendChild(mockSender);
+				row.appendChild(mockSubject);
+				row.appendChild(mockBody);
+				row.appendChild(mockDate);
+
+				table.appendChild(row);
+
 			}
+
 		};
 
 	</script>
 </head>
 
 <body>
-	<div class="container" id="main">
-		<ul id="geemails-ul">
-		</ul>
+
+	<div id="top">Placeholder for search bar...</div>
+	<div id="bottom">
+
+		<div id="left">
+			<div class="clickable">
+				<i class="material-icons">inbox</i>
+				<p>Inbox</p>
+			</div>
+			<br>
+			<div class="clickable">
+				<i class="material-icons">delete</i>
+				<p>Trash</p>
+			</div>
+
+		</div>
+
+		<div id="right">
+			<table id="geemails-table" style="width:100%">
+				<tbody>
+					<tr>
+						<th style="width:14%">
+							<i class="material-icons">person</i>
+							<!-- Sender -->
+						</th>
+						<th style="width:14%">
+							<i class="material-icons">subject</i>
+							<!-- Subject -->
+						</th>
+						<th style="width:61.8%">
+							<i class="material-icons">format_align_justify</i>
+							<!-- Body -->
+						</th>
+						<th style="width:10.2%">
+							<i class="material-icons">calendar_today</i>
+							<!-- Date -->
+						</th>
+					</tr>
+			</table>
+		</div>
+
 	</div>
+
+
 </body>
 
 </html>
