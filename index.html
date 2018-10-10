@@ -12,7 +12,7 @@
 		window.onload = function () {
 			// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
 
-			let table = document.getElementById('geemails-table');
+			var table = document.getElementById('table');
 			let trashCount, inboxCount;
 			let tc = document.getElementById('tc');
 			let ic = document.getElementById('ic');
@@ -21,16 +21,16 @@
 			}
 
 			function addRow(g) {
-				let row = document.createElement("tr");
 
-				let mockSender = document.createElement("td");
-				let mockSubject = document.createElement("td");
-				let mockBody = document.createElement("td");
-				let mockDate = document.createElement("td");
+				var row = table.insertRow(1);
+				var mockSender = row.insertCell(0);
+				var mockSubject = row.insertCell(1);
+				var mockBody = row.insertCell(2);
+				var mockDate = row.insertCell(3);
 
 				mockSender.innerHTML = g.sender.substring(0, 128);
 				mockSubject.innerHTML = g.subject.substring(0, 128);
-				mockBody.innerHTML = g.body.substring(0, 256) +"...";
+				mockBody.innerHTML = g.body.substring(0, 256);
 				mockDate.innerHTML = g.date.toISOString().split('T')[0];
 
 				row.appendChild(mockSender);
@@ -38,20 +38,45 @@
 				row.appendChild(mockBody);
 				row.appendChild(mockDate);
 
-				table.appendChild(row);
-
 				trashCount = 0;
 				inboxCount = geemails.length - trashCount;
 
 				tc.innerHTML = `Trash(${trashCount})`
 				ic.innerHTML = `Inbox(${inboxCount})`
 			}
+
 			setInterval(() => {
 				let message = getNewMessage();
 				window.geemails.push(message);
 				addRow(message);
-			}, 1000);
+			}, 3000);
 
+			/* Ripped straight from: 
+			 * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
+			 */
+			sortTable = function (whichColumn) {
+
+				let table, rows, switching, i, x, y, shouldSwitch;
+				table = document.getElementById("table");
+				switching = true;
+				while (switching) {
+					switching = false;
+					rows = table.rows;
+					for (i = 1; i < (rows.length - 1); i++) {
+						shouldSwitch = false;
+						x = rows[i].getElementsByTagName("TD")[whichColumn];
+						y = rows[i + 1].getElementsByTagName("TD")[whichColumn];
+						if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+							shouldSwitch = true;
+							break;
+						}
+					}
+					if (shouldSwitch) {
+						rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+						switching = true;
+					}
+				}
+			}
 		};
 
 	</script>
@@ -72,13 +97,12 @@
 
 	<div id="top">
 		<form action="/action_page.php">
-			<input type="text" value="search" ><br>
+			<input type="text" value="search"><br>
 		</form>
 	</div>
 	<div id="bottom">
 
 		<div id="left">
-			<br>
 			<div class="clickable">
 				<div id="ic" style="float:left">
 				</div>
@@ -111,29 +135,31 @@
 
 		<div id="right">
 
-			<table id="geemails-table" style="width:100%">
+			<table id="table">
 				<tr>
-					<th style="width:14%">
+					<th style="width:14%" onclick="sortTable(0)">
 						<i class="material-icons">person</i>
 						<!-- Sender -->
 					</th>
-					<th style="width:14%">
+					<th style="width:14%" onclick="sortTable(1)">
 						<i class="material-icons">subject</i>
 						<!-- Subject -->
 					</th>
-					<th style="width:61.8%">
+					<th style="width:61.8%" onclick="sortTable(2)">
 						<i class="material-icons">format_align_justify</i>
 						<!-- Body -->
 					</th>
-					<th style="width:10.2%">
+					<th style="width:10.2%" onclick="sortTable(3)">
 						<i class="material-icons">calendar_today</i>
 						<!-- Date -->
 					</th>
 				</tr>
 			</table>
 
-			<div><BR>
-				<h1>Created by: Tristan Madden 2018</h1><BR>
+			<div>
+
+				<h3>Created by: Tristan Madden 2018</h3>
+
 			</div>
 		</div>
 

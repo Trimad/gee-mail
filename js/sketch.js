@@ -2,7 +2,7 @@ var balls = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
+
   noStroke();
 
   for (let i = 0; i < 100; i++) {
@@ -14,7 +14,6 @@ function setup() {
 function draw() {
   background("#FFF");
   balls.forEach(b => b.update());
-  
 }
 
 function windowResized() {
@@ -26,9 +25,9 @@ class Ball {}
 Ball.prototype.init = function() {
   this.x = Math.random() * width; //0 to width
   this.y = Math.random() * height; //0 to height
-  this.dx = Math.random() * 1.5 - 0.5; // -0.5 to 0.5
-  this.dy = Math.random() * 1.5 - 0.5; // -0.5 to 0.5
-  this.diameter = Math.random() * 128; // 0 to 128
+  this.dx = Math.random() * 0.5 - 0.5; // -0.5 to 0.5
+  this.dy = Math.random() * 0.5 - 0.5; // -0.5 to 0.5
+  this.diameter = Math.random() * 100; // 0 to 128
   this.radius = this.diameter * 0.5; // 0 to 50
   this.R = Math.random() * 382 - 127; //127 to 255
   this.G = Math.random() * 382 - 127; //127 to 255

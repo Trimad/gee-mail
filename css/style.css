@@ -51,6 +51,10 @@ div#bottom {
 div#right {
   margin-left: 200;
   margin-bottom: 123.61px;
+  border-radius: 10px 0px 0px 10px;
+  border-top: 1px solid #bbb;
+  border-left: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
 }
 
 .clickable {
@@ -85,8 +89,9 @@ div#right {
 }
 
 table {
-  border-collapse: collapse;
-  table-layout: fixed;
+  width:100%;
+  /* border-collapse: collapse; */
+  /* table-layout: fixed; */
 }
 th,
 td,
