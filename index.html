@@ -8,7 +8,6 @@
 	<script src="js/sketch.js"></script>
 	<script src="libraries/p5.min.js"></script>
 
-
 	<script>
 
 		window.onload = function () {
@@ -21,7 +20,7 @@
 			let searchButton = document.getElementById('button');
 			searchButton.addEventListener("click", (e) => e ? alert("This isn't wired to anything!") : false);
 
-			//Trash as a feature is just a stub.
+			//Trash is just stubbed-out
 			let trash, trashCount = 0;
 			let trashCounter = document.getElementById('tc');
 			trashCounter.innerHTML = `Trash(${trashCount})`
@@ -77,6 +76,7 @@
 
 			}
 
+			//User must click on the "body" cell of an email row for this function to be called.
 			function viewGeemail(g) {
 				document.getElementById("geemail-viewer").style.top = event.clientY;
 				document.getElementById("geemail-viewer").className = "viewer-shown";
@@ -84,21 +84,20 @@
 				document.getElementById("geemail-viewer-subject").innerHTML = g.subject;
 				document.getElementById("geemail-viewer-date").innerHTML = g.date;
 				document.getElementById("geemail-viewer-body").innerHTML = g.body;
+				//If the user clicks on an email viewer, it will close.
 				document.getElementById("geemail-viewer").addEventListener("click", (e) => e ? document.getElementById("geemail-viewer").className = "viewer-hidden" : false);
-				
-
 			}
-			
-			//Trash as a feature is just a stub.
+
+			//Trash is just stubbed-out
 			function deleteRow() {
 				// trashCount = trash.length;
 				// trashCounter.innerHTML = `Trash(${trashCount})`
 			}
 
-			/* 
+			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 			 * Ripped straight from: 
 			 * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
-			 */
+			 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 			sortTable = function (whichColumn) {
 				let table, rows, switching, i, x, y, shouldSwitch;
 				table = document.getElementById("table");
@@ -180,6 +179,7 @@
 			<tr>
 				<th style="width:14%" onclick="sortTable(0)">
 					<i class="material-icons">person</i>
+					<!-- Person -->
 				</th>
 				<th style="width:14%" onclick="sortTable(1)">
 					<i class="material-icons">subject</i>
@@ -197,13 +197,8 @@
 
 		</table>
 
-		<div>
-
-		</div>
-
 	</div>
 
-	</div>
 	<div id="geemail-viewer" class="viewer-hidden">
 		<h2 id="geemail-viewer-sender"></h2>
 		<h3 id="geemail-viewer-subject"></h3>
