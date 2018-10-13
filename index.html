@@ -79,7 +79,8 @@
 
 			//User must click on the "body" cell of an email row for this function to be called.
 			function viewGeemail(g) {
-				document.getElementById("geemail-viewer").style.top = event.clientY;
+				//disabled for wrecking performance
+				// document.getElementById("geemail-viewer").style.top = event.clientY;
 				document.getElementById("geemail-viewer").className = "viewer-shown";
 				document.getElementById("geemail-viewer-sender").innerHTML = g.sender;
 				document.getElementById("geemail-viewer-subject").innerHTML = g.subject;
@@ -128,6 +129,8 @@
 </head>
 
 <body class="wrapper">
+
+
 
 	<header class="header">
 		<div class="search-wrapper">
@@ -180,19 +183,15 @@
 			<tr>
 				<th style="width:14%" onclick="sortTable(0)">
 					<i class="material-icons">person</i>
-					<!-- Person -->
 				</th>
 				<th style="width:14%" onclick="sortTable(1)">
 					<i class="material-icons">subject</i>
-					<!-- Subject -->
 				</th>
 				<th style="width:61.8%" onclick="sortTable(2)">
 					<i class="material-icons">format_align_justify</i>
-					<!-- Body -->
 				</th>
 				<th style="width:10.2%" onclick="sortTable(3)">
 					<i class="material-icons">calendar_today</i>
-					<!-- Date -->
 				</th>
 			</tr>
 
