@@ -2,7 +2,7 @@ var balls = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  frameRate(30);
   noStroke();
 
   for (let i = 0; i < 100; i++) {
@@ -23,8 +23,8 @@ function windowResized() {
 class Ball {}
 
 Ball.prototype.init = function() {
-  this.x = Math.random() * width; //0 to width
-  this.y = Math.random() * height; //0 to height
+  this.x = Math.random() * (width - 100) + 50; //50 to width-50
+  this.y = Math.random() * (height - 100) + 50; //50 to height-50
   this.dx = Math.random() * 0.5 - 0.5; // -0.5 to 0.5
   this.dy = Math.random() * 0.5 - 0.5; // -0.5 to 0.5
   this.diameter = Math.random() * 100; // 0 to 128

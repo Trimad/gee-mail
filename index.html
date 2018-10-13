@@ -7,55 +7,99 @@
 	<script src="js/mail-generator.js"></script>
 	<script src="js/sketch.js"></script>
 	<script src="libraries/p5.min.js"></script>
+
+
 	<script>
 
 		window.onload = function () {
-			// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
 
-			var table = document.getElementById('table');
-			let trashCount, inboxCount;
-			let tc = document.getElementById('tc');
-			let ic = document.getElementById('ic');
+			let table = document.getElementById('table');
+
+			let searchBar = document.getElementById('search');
+			searchBar.addEventListener("keydown", (e) => e.keyCode === 13 ? alert("This isn't wired to anything!") : false);
+
+			let searchButton = document.getElementById('button');
+			searchButton.addEventListener("click", (e) => e ? alert("This isn't wired to anything!") : false);
+
+			//Trash as a feature is just a stub.
+			let trash, trashCount = 0;
+			let trashCounter = document.getElementById('tc');
+			trashCounter.innerHTML = `Trash(${trashCount})`
+			let inboxCount;
+			let inboxCounter = document.getElementById('ic');
+
+			//initialize geemails
 			for (i = 0; i < geemails.length; i++) {
 				addRow(geemails[i]);
 			}
 
+			//Every 5 seconds, add another email to the inbox
+			setInterval(() => {
+				window.geemails.push(getNewMessage());
+				addRow(window.geemails[window.geemails.length - 1]);
+			}, 5000);
+
+			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			* Insert a new row at the top of the table.
+            * Repeat this algorithm for Sender, Subject, Body, and Date:
+			* 1. Insert a new cell into the row.
+			* 2. Add a 128-character substring to that cell.
+			* 3. Add an event Listener to that cell.
+			* 4. Append that cell as a child to the row.
+			* Update the inbox counter.
+			* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 			function addRow(g) {
 
-				var row = table.insertRow(1);
-				var mockSender = row.insertCell(0);
-				var mockSubject = row.insertCell(1);
-				var mockBody = row.insertCell(2);
-				var mockDate = row.insertCell(3);
+				let row = table.insertRow(1);
 
+				let mockSender = row.insertCell(0);
 				mockSender.innerHTML = g.sender.substring(0, 128);
-				mockSubject.innerHTML = g.subject.substring(0, 128);
-				mockBody.innerHTML = g.body.substring(0, 256);
-				mockDate.innerHTML = g.date.toISOString().split('T')[0];
-
+				mockSender.addEventListener("click", (e) => e ? alert("This isn't wired to anything!") : false);
 				row.appendChild(mockSender);
+
+				let mockSubject = row.insertCell(1);
+				mockSubject.innerHTML = g.subject.substring(0, 128);
+				mockSubject.addEventListener("click", (e) => e ? alert("This isn't wired to anything!") : false);
 				row.appendChild(mockSubject);
+
+				let mockBody = row.insertCell(2);
+				mockBody.innerHTML = g.body.substring(0, 128);
+				mockBody.addEventListener("click", (e) => e ? viewGeemail(g) : false);
 				row.appendChild(mockBody);
+
+				let mockDate = row.insertCell(3);
+				mockDate.innerHTML = g.date.toISOString().split('T')[0];
+				mockDate.addEventListener("click", (e) => e ? alert("This isn't wired to anything!") : false);
 				row.appendChild(mockDate);
 
-				trashCount = 0;
-				inboxCount = geemails.length - trashCount;
+				inboxCount = geemails.length;
+				inboxCounter.innerHTML = `Inbox(${inboxCount})`
 
-				tc.innerHTML = `Trash(${trashCount})`
-				ic.innerHTML = `Inbox(${inboxCount})`
 			}
 
-			setInterval(() => {
-				let message = getNewMessage();
-				window.geemails.push(message);
-				addRow(message);
-			}, 3000);
+			function viewGeemail(g) {
+				document.getElementById("geemail-viewer").style.top = event.clientY;
+				document.getElementById("geemail-viewer").className = "viewer-shown";
+				document.getElementById("geemail-viewer-sender").innerHTML = g.sender;
+				document.getElementById("geemail-viewer-subject").innerHTML = g.subject;
+				document.getElementById("geemail-viewer-date").innerHTML = g.date;
+				document.getElementById("geemail-viewer-body").innerHTML = g.body;
+				document.getElementById("geemail-viewer").addEventListener("click", (e) => e ? document.getElementById("geemail-viewer").className = "viewer-hidden" : false);
+				
 
-			/* Ripped straight from: 
+			}
+			
+			//Trash as a feature is just a stub.
+			function deleteRow() {
+				// trashCount = trash.length;
+				// trashCounter.innerHTML = `Trash(${trashCount})`
+			}
+
+			/* 
+			 * Ripped straight from: 
 			 * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
 			 */
 			sortTable = function (whichColumn) {
-
 				let table, rows, switching, i, x, y, shouldSwitch;
 				table = document.getElementById("table");
 				switching = true;
@@ -83,88 +127,89 @@
 
 </head>
 
-<!-- <body class="wrapper">
+<body class="wrapper">
 
-		<div class="header"></div>
-		<div class="logo"></div>
-		<div class="left"></div>
-		<div class="right"></div>
-		<div class="footer"></div>
-	
-	</body> -->
+	<header class="header">
+		<div class="search-wrapper">
+			<input id="search" class="search-bar" type="text" placeholder="What are you looking for?">
+			<button id="button" class="search-button">
+				<i class="material-icons">search</i>
+			</button>
+		</div>
+	</header>
 
-<body id="bg">
-
-	<div id="top">
-		<form action="/action_page.php">
-			<input type="text" value="search"><br>
-		</form>
+	<div class="logo">
+		<img SRC="images/mail.gif">
 	</div>
-	<div id="bottom">
 
-		<div id="left">
-			<div class="clickable">
-				<div id="ic" style="float:left">
-				</div>
-				<div style="float:right">
-					<i class="material-icons">inbox</i>
-				</div>
-				<p></p>
-			</div>
-			<br>
-			<div class="clickable">
-				<div id="tc" style="float:left">
-				</div>
-				<div style="float:right">
-					<i class="material-icons">delete</i>
-				</div>
-				<p></p>
-			</div>
-			<br>
-			<div class="clickable">
-				<div style="float:left">
-					Settings
-				</div>
-				<div style="float:right">
-					<i class="material-icons">settings</i>
-				</div>
-				<p></p>
-			</div>
+	<div class="left">
 
+		<div class="clicky-wrapper">
+			<div class="clicky-text">
+				<a id="ic" href="index.html"></a>
+			</div>
+			<div class="clicky-icon">
+				<i class="material-icons">inbox</i>
+			</div>
 		</div>
 
-		<div id="right">
+		<div class="clicky-wrapper">
 
-			<table id="table">
-				<tr>
-					<th style="width:14%" onclick="sortTable(0)">
-						<i class="material-icons">person</i>
-						<!-- Sender -->
-					</th>
-					<th style="width:14%" onclick="sortTable(1)">
-						<i class="material-icons">subject</i>
-						<!-- Subject -->
-					</th>
-					<th style="width:61.8%" onclick="sortTable(2)">
-						<i class="material-icons">format_align_justify</i>
-						<!-- Body -->
-					</th>
-					<th style="width:10.2%" onclick="sortTable(3)">
-						<i class="material-icons">calendar_today</i>
-						<!-- Date -->
-					</th>
-				</tr>
-			</table>
+			<div class="clicky-text">
+				<a id="tc" href="index.html"></a>
+			</div>
+			<div class="clicky-icon">
+				<i class="material-icons">delete</i>
+			</div>
+		</div>
 
-			<div>
-
-				<h3>Created by: Tristan Madden 2018</h3>
-
+		<div class="clicky-wrapper">
+			<div class="clicky-text">
+				<a href="index.html">Settings</a>
+			</div>
+			<div class="clicky-icon">
+				<i class="material-icons">settings</i>
 			</div>
 		</div>
 
 	</div>
 
+	<div class="right">
+
+		<table id="table">
+			<tr>
+				<th style="width:14%" onclick="sortTable(0)">
+					<i class="material-icons">person</i>
+				</th>
+				<th style="width:14%" onclick="sortTable(1)">
+					<i class="material-icons">subject</i>
+					<!-- Subject -->
+				</th>
+				<th style="width:61.8%" onclick="sortTable(2)">
+					<i class="material-icons">format_align_justify</i>
+					<!-- Body -->
+				</th>
+				<th style="width:10.2%" onclick="sortTable(3)">
+					<i class="material-icons">calendar_today</i>
+					<!-- Date -->
+				</th>
+			</tr>
+
+		</table>
+
+		<div>
+
+		</div>
+
+	</div>
+
+	</div>
+	<div id="geemail-viewer" class="viewer-hidden">
+		<h2 id="geemail-viewer-sender"></h2>
+		<h3 id="geemail-viewer-subject"></h3>
+		<h4 id="geemail-viewer-date"></h4>
+		<div id="geemail-viewer-body"></div>
+	</div>
 
 </body>
 
